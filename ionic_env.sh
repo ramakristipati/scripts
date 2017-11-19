@@ -5,6 +5,10 @@ NPM_VERSION=5.5.1
 IONIC_VERSION=3.9.2
 CORDOVA_VERSION=7.1.0
 
+if [ -z "$(which curl)" ]; then
+  sudo apt-get -y install curl
+fi
+
 # install nodejs and npm
 if [ -z "$(which npm)" ]; then
   curl --retry 3 -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"
@@ -39,7 +43,7 @@ if [ -z "$(service mongod status | grep running)" ]; then
 fi
 
 #install android
-. $(dirname $0)/android_env.sh
+. $(dirname $BASH_SOURCE)/android_env.sh
 
 # set timezone
 export TZ="Asia/Calcutta"
