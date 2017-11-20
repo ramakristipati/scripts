@@ -1,0 +1,16 @@
+#!/bin/sh
+
+file=`which $1`
+
+type=`file $file`
+
+echo $type | grep "script text executable";ret1=$?
+echo $type | grep "ASCII text";ret2=$?
+echo $type | grep "ASCII English text";ret3=$?
+
+if [ $ret1 -eq 0 -o $ret2 -eq 0 -o $ret3 -eq 0 ]; then
+  vim `echo $type | cut -d ":" -f1`
+else
+  echo "$1 not editbale - $file"
+fi
+
