@@ -1,0 +1,128 @@
+map qq :q!<CR>
+map ss :wq!<CR>
+"map ss :w!<CR>:n<CR>
+"map ww :wn!<CR>
+"map nn :n!<CR>
+map ;; A{<ESC>jA}<ESC>
+map @@ n@a<CR>
+set incsearch
+set ts=2
+" source /usr/share/vim/vim64/vimrc_example.vim
+" source /usr/share/vim/vim70/debian.vim
+"source /home/sastry/sharecvs/env/vimrc.vissu
+set softtabstop=2
+syntax enable
+
+" Use spaces instead of tabs
+set expandtab
+
+set showcmd    " Show (partial) command in status line.
+set showmatch    " Show matching brackets.
+set ignorecase   " Do case insensitive matching
+set smartcase    " Do smart case matching
+set incsearch    " Incremental search
+set autowrite    " Automatically save before commands like :next and :make
+set hidden             " Hide buffers when they are abandoned
+"set mouse=a    " Enable mouse usage (all modes) in terminals
+
+
+" Make the window title reflect the file being edited
+set title
+set titlestring=VIM:\ %F
+
+" Turn off the bell
+set vb t_vb=
+
+" Set list Chars - for showing characters that are not
+" " normally displayed i.e. whitespace, tabs, EOL
+set listchars=trail:.,tab:>-,eol:$
+set nolist
+
+" Turn ruler on
+set ruler
+
+" Make sure status line is always visible
+set laststatus=2
+
+" Make command line two lines high
+set ch=2
+
+" Setup backup location and enable
+set backupdir=~/backup/vim
+set backup
+
+" Set Swap directory
+"set directory=~/backup/vim/swap
+
+" Show/Hide hidden Chars
+map <silent> <F2> :set invlist<CR>
+
+" Show/Hide line numbers
+map <F3> :set nu<CR>
+noremap <F3> :set nu!<CR>
+
+" Show/Hide line numbers
+map <F4> :set hlsearch guibg=LightBlue<CR>
+noremap <F4> :set nohlsearch!<CR>
+
+" Format paragraph
+"map <silent> <F8> gwap
+"
+set nocindent
+set nosmartindent
+set noautoindent
+filetype indent off
+filetype plugin indent off
+
+set sw=2
+fun BenIndent()
+let oldLine=line('.')
+normal(gg=G)
+execute ':' . oldLine
+endfun
+map -- :call BenIndent()<cr>
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal g'\"" | endif
+endif
+
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre *.tcl :call <SID>StripTrailingWhitespaces()
+
+fun! DelBlank()
+   let _s=@/
+   let l = line(".")
+   let c = col(".")
+   :g/^\n\{2,}/d
+   let @/=_s
+   call cursor(l, c)
+endfun
+
+"map <F5> <leader>d :keepjumps call DelBlank()<cr>
+map <F5> :keepjumps call DelBlank()<cr>
+
+"autocmd FileType python setlocal shiftwidth=2 tabstop=2 noexpandtab
+
+"AutoCmd BufNewFile,BufRead *.py
+    \ setlocal tabstop=2
+    \ setlocal softtabstop=4
+    \ setlocal shiftwidth=4
+    \ setlocal textwidth=80
+    \ setlocal smarttab
+    \ setlocal expandtab
+
+"autocmd BufWritePre * :%s/\s\+$//e
+
+"au BufNewFile,BufRead *.ts setlocal ft=javascript
+"autocmd FileType c,cpp,java,php,js,ts autocmd BufWritePre <buffer> %s/\s\+$//e
+"autocmd BufWritePre *.js %s/\s\+$//e
+autocmd BufWritePre *.tcl %s/\s\+$//e
+
