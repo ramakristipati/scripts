@@ -10,6 +10,11 @@ if [ -z "$(which curl)" ]; then
   sudo apt-get -y install curl
 fi
 
+if [ -z "$(which gem)" ]; then
+  sudo apt-get -y install gem g++
+  sudo gem install fastlane --verbose
+fi
+
 # install nodejs and npm
 if [ -z "$(which npm)" ]; then
   curl --retry 3 -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"
