@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -f /etc/issue-standard ] || cp -f /etc/issue /etc/issue-standard
+[ -f /etc/issue-standard ] || sudo cp -f /etc/issue /etc/issue-standard
 
 TMPFILE=$(mktemp)
 cat << EOF > $TMPFILE
