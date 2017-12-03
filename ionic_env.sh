@@ -12,7 +12,7 @@ if [ -z "$(which curl)" ]; then
 fi
 
 if [ -z "$(which gem)" ]; then
-  sudo apt-get -y install gem g++
+  sudo apt-get -y install ruby-dev make gem g++
   sudo gem install fastlane --verbose
 fi
 
