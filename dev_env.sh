@@ -17,7 +17,9 @@ if [ "\$MODE" != start ]; then
 fi
 
 rm -f /etc/issue
-ip address | grep "scope global" | awk '{ print \$7 " : " \$2 }' >> /etc/issue
+#ip address | grep "scope global" | awk '{ print \$7 " : " \$2 }' >> /etc/issue
+ADDR=\$(ip address | grep "scope global" | awk '{ print \$2 }' | xargs)
+echo "IP Addresses: \$ADDR" >> /etc/issue
 cat /etc/issue-standard >> /etc/issue
 EOF
 chmod +x $TMPFILE
