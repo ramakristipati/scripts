@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get install ifupdown
+
 [ -f /etc/issue-standard ] || sudo cp -f /etc/issue /etc/issue-standard
 
 TMPFILE=$(mktemp)
